@@ -29,7 +29,7 @@ flutter:
         package: com.flutterplaza.no_screenshot
         pluginClass: NoScreenshotPlugin
       ios:
-        pluginClass: NoScreenshotPlugin
+        pluginClass: IOSNoScreenshotPlugin
       macos:
         pluginClass: MacOSNoScreenshotPlugin
       linux:
