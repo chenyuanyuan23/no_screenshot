@@ -120,7 +120,7 @@ public class IOSNoScreenshotPlugin: NSObject, FlutterPlugin, FlutterStreamHandle
 
     private func enableImageScreen(named: String) {
         guard let window = currentKeyWindow else { return }
-        let imageView = UIImageView(frame: UIScreen.main.bounds)
+        let imageView = UIImageView(frame: window.bounds)
         imageView.image = UIImage(named: named)
         imageView.isUserInteractionEnabled = false
         imageView.contentMode = .scaleAspectFill
@@ -347,7 +347,8 @@ public class IOSNoScreenshotPlugin: NSObject, FlutterPlugin, FlutterStreamHandle
         guard let window = currentKeyWindow else { return }
         disableBlurScreen()
 
-        let blurView = UIVisualEffectView(frame: UIScreen.main.bounds)
+        // 折叠屏内屏上 UIScreen.main 仍是外屏，遮罩要跟随所在窗口
+        let blurView = UIVisualEffectView(frame: window.bounds)
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurView.isUserInteractionEnabled = false
         window.addSubview(blurView)
@@ -452,7 +453,7 @@ public class IOSNoScreenshotPlugin: NSObject, FlutterPlugin, FlutterStreamHandle
         let b = CGFloat(color & 0xFF) / 255.0
         let uiColor = UIColor(red: r, green: g, blue: b, alpha: a)
 
-        let colorView = UIView(frame: UIScreen.main.bounds)
+        let colorView = UIView(frame: window.bounds)
         colorView.backgroundColor = uiColor
         colorView.isUserInteractionEnabled = false
         colorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
